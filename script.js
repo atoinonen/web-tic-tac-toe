@@ -89,45 +89,47 @@ const game = function () {
     return { placeMark, getBoard };
 }();
 
-
-function drawGameboard() {
-    var gameOver = false;
-    const gameboard = document.getElementById("gameboard");
-    let color = "rgb(230, 103, 103)";
-    let othercolor = "rgb(194, 44, 44)"
-    for (let row = 0; row <= 2; row++) {
-        for (let col = 0; col <= 2; col++) {
-            const square = document.createElement("div");
-            square.id = row.toString() + col.toString();
-            square.addEventListener("click", () => {
-                if (gameOver) return;
-                const { won, tie, winner } = game.placeMark(row, col);
-                drawMarks();
-                if (tie || won) gameOver = true;
-                if (won) console.log(winner + " won!");
-                if (tie) console.log("Tie!");
-            });
-            square.style.backgroundColor = color;
-            [color, othercolor] = [othercolor, color];
-            gameboard.appendChild(square);
-        }
-    }
-}
-
-function drawMarks() {
-    const gameboard = game.getBoard()
-    for (let row = 0; row <= 2; row++) {
-        for (let col = 0; col <= 2; col++) {
-            const mark = gameboard[row][col];
-            const square = document.getElementById(row.toString() + col.toString());
-            if (mark === "x") {
-                square.textContent = "X";
-            }
-            if (mark === "o") {
-                square.textContent = "O";
+const ui = function () {
+    function drawGameboard() {
+        var gameOver = false;
+        const gameboard = document.getElementById("gameboard");
+        let color = "rgb(230, 103, 103)";
+        let othercolor = "rgb(194, 44, 44)"
+        for (let row = 0; row <= 2; row++) {
+            for (let col = 0; col <= 2; col++) {
+                const square = document.createElement("div");
+                square.id = row.toString() + col.toString();
+                square.addEventListener("click", () => {
+                    if (gameOver) return;
+                    const { won, tie, winner } = game.placeMark(row, col);
+                    drawMarks();
+                    if (tie || won) gameOver = true;
+                    if (won) console.log(winner + " won!");
+                    if (tie) console.log("Tie!");
+                });
+                square.style.backgroundColor = color;
+                [color, othercolor] = [othercolor, color];
+                gameboard.appendChild(square);
             }
         }
     }
-}
 
-drawGameboard();
+    function drawMarks() {
+        const gameboard = game.getBoard()
+        for (let row = 0; row <= 2; row++) {
+            for (let col = 0; col <= 2; col++) {
+                const mark = gameboard[row][col];
+                const square = document.getElementById(row.toString() + col.toString());
+                if (mark === "x") {
+                    square.textContent = "X";
+                }
+                if (mark === "o") {
+                    square.textContent = "O";
+                }
+            }
+        }
+    }
+    return { drawGameboard };
+}();
+
+ui.drawGameboard();
