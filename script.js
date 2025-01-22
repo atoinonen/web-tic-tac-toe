@@ -63,3 +63,28 @@ const gameboard = function(){
 
     return {placeX, placeO, getBoard, checkWin, checkTie};
 }();
+
+const game = function(){
+    let player1Turn = true;
+
+    function placeMark(row, col){
+        if(player1Turn){
+            gameboard.placeO(row, col);
+        }else{
+            gameboard.placeX(row, col);
+        }
+        player1Turn = !player1Turn;
+
+        let won, winner;
+
+        [won, winner] = gameboard.checkWin();
+        if (won){
+            return {won, tie:false, winner};
+        }
+        return {won:false, tie:gameboard.checkTie(), winner:undefined};
+    }
+
+    getBoard = gameboard.getBoard;
+
+    return {placeMark, getBoard};
+}();
