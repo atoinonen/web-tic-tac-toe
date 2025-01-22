@@ -91,16 +91,32 @@ const game = function(){
 
 
 function drawGameboard(){
-    let gameboard = document.getElementById("gameboard");
+    const gameboard = document.getElementById("gameboard");
     let color = "rgb(230, 103, 103)";
     let othercolor = "rgb(194, 44, 44)"
     for (row = 0; row <= 2; row++){
         for (col = 0; col <= 2; col++){
-            let square = document.createElement("div");
+            const square = document.createElement("div");
             square.id = row.toString() + col.toString();
             square.style.backgroundColor = color;
             [color, othercolor] = [othercolor, color];
             gameboard.appendChild(square);
+        }
+    }
+}
+
+function drawMarks(){
+    const gameboard = game.getBoard()
+    for (row = 0; row <= 2; row++){
+        for (col = 0; col <= 2; col++){
+            const mark = gameboard[row][col];
+            const square = document.getElementById(row.toString() + col.toString());
+            if (mark === "x"){
+                square.textContent = "X";
+            }
+            if (mark === "o"){
+                square.textContent = "O";
+            }
         }
     }
 }
