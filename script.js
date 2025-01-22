@@ -34,13 +34,18 @@ const gameboard = function(){
         return false;
     }
 
+    function checkTie(){
+        if(board.flat().includes(undefined)) return false;
+        return !checkWin();
+    }
+
     function place_(isX, row, col){
         mark = isX ? "x" : "o";
         if (board[row][col] !== undefined){
             throw "Coordinates already populated"; 
         }
         board[row][col] = mark;
-        return checkWin();
+        return;
     }
 
     function placeX(row, col){
@@ -55,5 +60,5 @@ const gameboard = function(){
         return board;
     }
 
-    return {placeX, placeO, getBoard};
+    return {placeX, placeO, getBoard, checkWin, checkTie};
 }();
