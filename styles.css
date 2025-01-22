@@ -6,12 +6,8 @@
 
 body {
     background-color: darkslategrey;
-    margin: min(5vh, 5vw);
-}
-
-#hud {
-    display: inline-flex;
-    flex-direction: column;
+    margin: min(2vh, 2vw);
+    display: flex;
 }
 
 #gameboard {
@@ -19,6 +15,7 @@ body {
     grid: 1fr 1fr 1fr / 1fr 1fr 1fr;
     width: min(90vh,60vw);
     height: min(90vh,60vw);
+    padding-right: min(2vh, 2vw);
 }
 
 #gameboard>div {
@@ -29,9 +26,24 @@ body {
     text-align: center;
 }
 
+#hud {
+    display: inline-flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+#hud > button {
+    background-color: rgb(230, 103, 103);
+    border-radius: 100px;
+    padding: 4px;
+    color: darkslategrey;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 #point-board {
     display: grid;
-    width: 30vw;
+    width: fit-content;
     grid: 1fr 1fr / 1fr 1fr 1fr;
     color: rgb(230, 103, 103);
     font-size: 2em;
