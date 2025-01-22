@@ -8,20 +8,25 @@ body {
     background-color: darkslategrey;
     margin: min(2vh, 2vw);
     display: flex;
+    flex-direction: column;
 }
 
 #gameboard {
     display: inline-grid;
     grid: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    width: min(90vh,60vw);
-    height: min(90vh,60vw);
-    padding-right: min(2vh, 2vw);
+    width: min(calc(90vh - 120px),90vw);
+    height: min(calc(90vh - 120px),90vw);
+    padding-bottom: min(2vh, 2vw);
+    min-height: 60px;
+    min-width: 60px;
 }
 
 #gameboard>div {
-    width: min(30vh,20vw);
-    height: min(30vh,20vw);
-    font-size: min(30vh,20vw);
+    width: min(calc(30vh - 40px),30vw);
+    height: min(calc(30vh - 40px),30vw);
+    font-size: min(calc(30vh - 40px),30vw);
+    min-height: 20px;
+    min-width: 20px;
     font-weight: bold;
     text-align: center;
 }
