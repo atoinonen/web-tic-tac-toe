@@ -61,7 +61,11 @@ const gameboard = function () {
         return board;
     }
 
-    return { placeX, placeO, getBoard, checkWin, checkTie };
+    function clearBoard() {
+        board = [[undefined, undefined, undefined], [undefined, undefined, undefined], [undefined, undefined, undefined]];
+    }
+
+    return { placeX, placeO, getBoard, checkWin, checkTie, clearBoard };
 }();
 
 const game = function () {
@@ -84,14 +88,23 @@ const game = function () {
         return { won: false, tie: gameboard.checkTie(), winner: undefined };
     }
 
-    getBoard = gameboard.getBoard;
+    function whoseTurn(){
+        if (player1Turn) {
+            return "O";
+        }
+        return "X";
+    }
 
-    return { placeMark, getBoard };
+    getBoard = gameboard.getBoard;
+    clearBoard = gameboard.clearBoard
+
+    return { placeMark, whoseTurn, getBoard, clearBoard };
 }();
 
 const ui = function () {
+    let gameOver = false;
+
     function drawGameboard() {
-        var gameOver = false;
         const gameboard = document.getElementById("gameboard");
         let color = "rgb(230, 103, 103)";
         let othercolor = "rgb(194, 44, 44)"
@@ -126,10 +139,20 @@ const ui = function () {
                 if (mark === "o") {
                     square.textContent = "O";
                 }
+                if (mark === undefined) {
+                    square.textContent = "";
+                }
             }
         }
     }
-    return { drawGameboard };
+
+    function newGame() {
+        game.clearBoard();
+        gameOver = false;
+        drawMarks();
+    }
+
+    return { drawGameboard, newGame };
 }();
 
 ui.drawGameboard();
