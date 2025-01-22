@@ -88,11 +88,11 @@ const game = function () {
         return { won: false, tie: gameboard.checkTie(), winner: undefined };
     }
 
-    function whoseTurn(){
+    function whoseTurn() {
         if (player1Turn) {
-            return "O";
+            return "o";
         }
-        return "X";
+        return "x";
     }
 
     getBoard = gameboard.getBoard;
@@ -103,6 +103,13 @@ const game = function () {
 
 const ui = function () {
     let gameOver = false;
+    let oPoints = 0;
+    let xPoints = 0;
+    let ties = 0;
+
+    const player1Points = document.createElement("p");
+    const tiePoints = document.createElement("p");
+    const player2Points = document.createElement("p");
 
     function drawGameboard() {
         const gameboard = document.getElementById("gameboard");
@@ -117,8 +124,22 @@ const ui = function () {
                     const { won, tie, winner } = game.placeMark(row, col);
                     drawMarks();
                     if (tie || won) gameOver = true;
-                    if (won) console.log(winner + " won!");
-                    if (tie) console.log("Tie!");
+                    if (tie) {
+                        console.log("Tie!");
+                        ties += 1;
+                        tiePoints.textContent = ties.toString();
+                    }
+                    if (won) {
+                        console.log(winner + " won!");
+                        if (winner === "o") {
+                            oPoints += 1;
+                            player1Points.textContent = oPoints.toString();
+                        }
+                        if (winner === "x") {
+                            xPoints += 1;
+                            player2Points.textContent = xPoints.toString();
+                        }
+                    }
                 });
                 square.style.backgroundColor = color;
                 [color, othercolor] = [othercolor, color];
@@ -146,13 +167,53 @@ const ui = function () {
         }
     }
 
+    function drawHud() {
+        drawGameboard();
+        const hud = document.getElementById("hud");
+
+        const newGameButton = document.createElement("button");
+        newGameButton.textContent = "New Game";
+        newGameButton.addEventListener("click", newGame);
+        hud.appendChild(newGameButton);
+
+        const pointBoard = document.createElement("div");
+        pointBoard.id = "point-board";
+        hud.appendChild(pointBoard);
+
+        const player1Name = document.createElement("p");
+        player1Name.textContent = "Player O";
+        player1Name.contentEditable = true;
+        pointBoard.appendChild(player1Name);
+
+        const tieName = document.createElement("p");
+        tieName.textContent = "Ties";
+        pointBoard.appendChild(tieName);
+
+        const player2Name = document.createElement("p");
+        player2Name.textContent = "Player X";
+        player2Name.contentEditable = true;
+        pointBoard.appendChild(player2Name);
+
+
+        player1Points.textContent = oPoints.toString();
+        pointBoard.appendChild(player1Points);
+
+
+        tiePoints.textContent = ties.toString();
+        pointBoard.appendChild(tiePoints);
+
+
+        player2Points.textContent = xPoints.toString();
+        pointBoard.appendChild(player2Points);
+    }
+
     function newGame() {
         game.clearBoard();
         gameOver = false;
         drawMarks();
     }
 
-    return { drawGameboard, newGame };
+    return { drawHud };
 }();
 
-ui.drawGameboard();
+ui.drawHud();
