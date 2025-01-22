@@ -17,26 +17,27 @@ const gameboard = function(){
 
         for (let row = 0; row < 2; row++){
             [won, winner] = checkLine(board[row]);
-            if (won) return true;
+            if (won) return [true, winner];
         }
 
         for (let col = 0; col < 2; col++){
             let boardCol = [board[0][col], board[1][col], board[2][col]];
             [won, winner] = checkLine(boardCol);
-            if (won) return true;
+            if (won) return [true, winner];
         }
 
         [won, winner] = checkLine([board[0][0],board[1][1],board[2][2]]);
-        if (won) return true;
+        if (won) return [true, winner];
         [won, winner] = checkLine([board[2][0],board[1][1],board[0][2]]);
-        if (won) return true;
+        if (won) return [true, winner];
 
-        return false;
+        return [false, undefined];
     }
 
     function checkTie(){
         if(board.flat().includes(undefined)) return false;
-        return !checkWin();
+        const [won, _] = checkWin()
+        return !won;
     }
 
     function place_(isX, row, col){
