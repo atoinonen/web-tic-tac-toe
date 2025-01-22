@@ -6,19 +6,20 @@
 
 body {
     background-color: darkslategrey;
+    margin: min(5vh, 5vw);
 }
 
 #gameboard {
     display: grid;
     grid: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    width: min(99vh,99vw);
-    height: min(99vh,99vw);
+    width: min(90vh,90vw);
+    height: min(90vh,90vw);
 }
 
 #gameboard>div {
-    width: min(33vh,33vw);
-    height: min(33vh,33vw);
-    font-size: min(33vh,33vw);
+    width: min(30vh,30vw);
+    height: min(30vh,30vw);
+    font-size: min(30vh,30vw);
     font-weight: bold;
     text-align: center;
 }
