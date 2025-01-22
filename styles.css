@@ -1,8 +1,22 @@
 * {
     font-family: 'Courier New', Courier, monospace;
+    padding: 0;
+    margin: 0;
 }
 
 body {
     background-color: darkslategrey;
     color: rgb(230, 103, 103);
+}
+
+#gameboard {
+    display: grid;
+    grid: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    width: min(99vh,99vw);
+    height: min(99vh,99vw);
+}
+
+#gameboard>div {
+    width: min(33vh,33vw);
+    height: min(33vh,33vw);
 }

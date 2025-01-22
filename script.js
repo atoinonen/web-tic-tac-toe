@@ -88,3 +88,21 @@ const game = function(){
 
     return {placeMark, getBoard};
 }();
+
+
+function drawGameboard(){
+    let gameboard = document.getElementById("gameboard");
+    let color = "rgb(230, 103, 103)";
+    let othercolor = "rgb(194, 44, 44)"
+    for (row = 0; row <= 2; row++){
+        for (col = 0; col <= 2; col++){
+            let square = document.createElement("div");
+            square.id = row.toString() + col.toString();
+            square.style.backgroundColor = color;
+            [color, othercolor] = [othercolor, color];
+            gameboard.appendChild(square);
+        }
+    }
+}
+
+drawGameboard();
